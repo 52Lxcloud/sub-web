@@ -140,8 +140,8 @@
               <el-form-item label-width="0px" style="text-align: center">
                 <el-button style="width: 140px" type="primary" @click="dialogUploadConfigVisible = true"
                   icon="el-icon-upload" :loading="loading">上传配置</el-button>
-                <el-button style="width: 140px" type="primary" @click="clashInstall" icon="el-icon-connection"
-                  :disabled="customSubUrl.length === 0">一键导入 Clash</el-button>
+                <el-button style="width: 140px" type="primary" @click="surgeInstall" icon="el-icon-connection"
+                  :disabled="customSubUrl.length === 0">一键导入 Surge</el-button>
               </el-form-item>
               <el-form-item label-width="0px" style="text-align: center">
                 <el-button style="width: 290px" type="primary" @click="dialogLoadConfigVisible = true"
@@ -364,7 +364,7 @@ export default {
     }
   },
   mounted() {
-    this.form.clientType = "clash";
+    this.form.clientType = "surge&ver=4";
     this.notify();
     this.getBackendVersion();
   },
