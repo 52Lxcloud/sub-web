@@ -506,26 +506,21 @@ export default {
 
       this.loading = true;
 
-      let data = new FormData();
-      data.append("longUrl", btoa(this.customSubUrl));
-
+      const suoalApi = "https://suo.al/api/create?format=json&token=38a7d9207a7792e020fcd339f2cd427f&longurl=";
+      
       this.$axios
-        .post(shortUrlBackend, data, {
-          header: {
-            "Content-Type": "application/form-data; charset=utf-8"
-          }
-        })
+        .get(suoalApi + encodeURIComponent(this.customSubUrl))
         .then(res => {
-          if (res.data.Code === 1 && res.data.ShortUrl !== "") {
-            this.curtomShortSubUrl = res.data.ShortUrl;
-            this.$copyText(res.data.ShortUrl);
+          if (res.data.code === 1 && res.data.short !== "") {
+            this.curtomShortSubUrl = res.data.short;
+            this.$copyText(res.data.short);
             this.$message.success("短链接已复制到剪贴板");
           } else {
-            this.$message.error("短链接获取失败：" + res.data.Message);
+            this.$message.error("短链接获取失败：" + (res.data.msg || "未知错误"));
           }
         })
-        .catch(() => {
-          this.$message.error("短链接获取失败");
+        .catch(error => {
+          this.$message.error("短链接获取失败: " + (error.message || "未知错误"));
         })
         .finally(() => {
           this.loading = false;
